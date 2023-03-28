@@ -5,4 +5,4 @@ logging_level: "INFO" # ERROR, WARN, INFO, DEBUG, TRACE
 # bot_admins:
 #   "TOKEN": "USERNAME"
 
-non_admin_response: "Not a bot admin! If you're Griff, kindly fuck off!"
+non_admin_response: "Not a bot admin!"
