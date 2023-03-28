@@ -1,0 +1,16 @@
+[package]
+name = "kitten_dispenser"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serenity = { version = "0.11.5", default-features = false, features = ["client", "gateway", "rustls_backend", "model", "cache", "http"] }
+#serenity = { default-features = true }
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+tracing = { version = "0.1.37" }
+tracing-subscriber = { version = "0.3.16" }
+rand = { version = "0.8.5" }
+config = { version = "0.13.3"}
+clap-v3 = "3.0.0-beta.1"
