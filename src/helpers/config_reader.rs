@@ -10,7 +10,6 @@ pub struct KittenConfig {
     pub bot_admins: HashMap<String, config::Value>,
     pub non_admin_response: String,
 }
-// pub fn get(path: PathBuf) -> Config {
 pub fn get(path: PathBuf) -> KittenConfig {
     let settings = Config::builder()
         .add_source(config::File::with_name(&path.to_str().unwrap()))
@@ -35,6 +34,5 @@ pub fn get(path: PathBuf) -> KittenConfig {
         non_admin_response: settings.get_string("non_admin_response").unwrap_or("Not a bot admin!".to_string()),
     };
 
-    // return settings;
     return kitten_config;
 }
