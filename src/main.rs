@@ -59,19 +59,12 @@ async fn main() {
     let config = helpers::config_reader::get(args.value_of("config").unwrap_or("config.yaml").into());
     let token: &String = &config.token;
 
-    // helpers::tracing_helper::start(config.get_string("logging_level").unwrap_or("EMPTY".to_string()));
     helpers::tracing_helper::start(&config.verbosity);
-
 
     let handler = Handler {
         // admins: config.bot_admins
         configuration: config.clone(),
     };
-
-    // config_reader::get(path);
-
-    // Configure the client with your Discord bot token in the environment.
-    // let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
 
     // Build our client.
     let mut client = Client::builder(token, GatewayIntents::empty())
