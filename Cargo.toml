@@ -1,3 +1,7 @@
+[[bin]]
+name = "kitten_dispenser"
+path = "./src/main.rs"
+
 [package]
 name = "kitten_dispenser"
 version = "0.1.0"
