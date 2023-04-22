@@ -10,21 +10,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: "${{ github.repository }}"
-    steps:
+    env: 
+      REPO_NAME: "${{ github.repository }}"
+    steps:      
     - uses: actions/checkout@v3
     - name: Log into Registry
       run: "docker login ${{ secrets.REGISTRY_URL }} --username ${{ secrets.REGISTRY_USER }} --password ${{ secrets.REGISTRY_TOKEN }}"
+      
+    - name: Declare variables
+      run: |
+        echo "IMAGE_NAME=$(echo ${REPO_NAME} | awk -F '/' '{print $2}' | tr [:upper:] [:lower:])" >> "$GITHUB_ENV"
+        echo "TIME_TAG=$(date +%s)" >> "$GITHUB_ENV"
+        
     - name: Build the Docker image
       run: |
-        echo "{TIME_TAG}={$(date +%s)}" >> "$GITHUB_ENV"
+        DOCKER_BUILDKIT=1 \
         docker build . -f Dockerfile \
           -t ${{ env.IMAGE_NAME }}:latest \
           -t ${{ env.IMAGE_NAME }}:${{ env.TIME_TAG }} \
-          -t ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:latest
+          -t ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:latest \
           -t ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:${{ env.TIME_TAG }}
+          
     - name: Push to registry
       run: |
-        docker push ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:latest
         docker push ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:${{ env.TIME_TAG }}
+        docker push ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:latest
