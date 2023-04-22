@@ -17,10 +17,9 @@ RUN ls -la /build/target
 
 
 FROM scratch
-WORKDIR /app/
 
 COPY --from=builder \
     /build/target/x86_64-unknown-linux-musl/release/kitten_dispenser\
-    /app/kitten_dispenser
+    /kitten_dispenser
 
-CMD /app/kitten_dispenser
+ENTRYPOINT ["/kitten_dispenser"]
