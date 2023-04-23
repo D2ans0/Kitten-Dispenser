@@ -3,6 +3,6 @@ logging_level: "INFO" # ERROR, WARN, INFO, DEBUG, TRACE
 
 # Users allowed to execute privileged commands, e.g. randomize_role
 # bot_admins:
-#   "TOKEN": "USERNAME"
+#   "USER_ID": "USERNAME"
 
 non_admin_response: "Not a bot admin!"
